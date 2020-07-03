@@ -1,4 +1,5 @@
 const { date, formatPrice } = require("../../lib/utils");
+const { defaults } = require("pg");
 
 module.exports = {
   async index(req, res) {
@@ -16,28 +17,27 @@ module.exports = {
           error: "O valor mínimo para empréstimo é de R$50.000,00",
         });
 
-      if (uf !== "MG" && uf !== "SP" && uf !== "RJ" && uf !== "ES")
-        return res.status(400).json({
-          error: "Não trabalhamos com o estado selecionado",
-        });
-
       let totalPayable;
       let juros; //juros em ingles
       let taxPerMonth;
 
-      //usar switch case
-      //validação de UF no default
-      if (uf === "MG") {
-        taxPerMonth = 1;
-      }
-      if (uf === "SP") {
-        taxPerMonth = 0.8;
-      }
-      if (uf === "RJ") {
-        taxPerMonth = 0.9;
-      }
-      if (uf === "ES") {
-        taxPerMonth = 1.11;
+      switch (uf) {
+        case "MG":
+          taxPerMonth = 1;
+          break;
+        case "SP":
+          taxPerMonth = 0.8;
+          break;
+        case "RJ":
+          taxPerMonth = 0.9;
+          break;
+        case "ES":
+          taxPerMonth = 1.11;
+          break;
+        default:
+          return res.status(400).json({
+            error: "Não trabalhamos com o estado selecionado",
+          });
       }
 
       juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
