@@ -17,7 +17,6 @@ module.exports = {
 
       let simulationDay = moment().format();
 
-      //salvar taxa e dia que foi solicitado
       const userId = await loanModel.insert({
         cpf,
         uf,
