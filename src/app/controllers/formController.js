@@ -1,5 +1,7 @@
 const { date, formatPrice } = require("../../lib/utils");
 const { defaults } = require("pg");
+const moment = require("moment");
+const { months } = require("moment");
 
 module.exports = {
   async index(req, res) {
@@ -18,7 +20,7 @@ module.exports = {
         });
 
       let totalPayable;
-      let juros; //juros em ingles
+      let interestAmount;
       let taxPerMonth;
 
       switch (uf) {
@@ -40,21 +42,22 @@ module.exports = {
           });
       }
 
-      juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
+      interestAmount = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
 
-      totalPayable = Number(requestedAmount) + juros;
+      totalPayable = Number(requestedAmount) + interestAmount;
 
       let firstInstallmentDate = Date.now();
 
       let plots = [];
+      let installmentValue = totalPayable /  deadlinesMonths
 
-      //add o momentjs
+      //utilizando o momentjs para calcular o dia de vencimento das parcelas
+      //Baseado no dia em que foi solicitada a simulação do emprestimo
       for (let i = 1; i <= Number(deadlinesMonths); i++) {
-        plots.push(
-          `${date(firstInstallmentDate).day}/${
-            Number(date(firstInstallmentDate).month) + i
-          }/${date(firstInstallmentDate).year}`
-        );
+        plots.push(plot = {
+          installmentValue,
+          installmentMaturity: moment().add(i,'months')
+        });
       }
 
       userLoan = {

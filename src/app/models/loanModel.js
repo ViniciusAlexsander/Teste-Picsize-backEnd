@@ -9,11 +9,13 @@ module.exports = {
     requestedAmount,
     deadlinesMonths,
     totalPayable,
+    taxPerMonth,
+    simulationDay,
   }) {
     try {
       const query = ` INSERT INTO user_loan (
-        cpf, uf, birth, requested_amount, deadlines_months, total_payable
-      ) VALUES ($1,$2,$3,$4,$5,$6)
+        cpf, uf, birth, requested_amount, deadlines_months, total_payable, tax_per_month,simulation_day
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
       RETURNING id`;
 
       const values = [
@@ -23,6 +25,8 @@ module.exports = {
         requestedAmount,
         deadlinesMonths,
         totalPayable,
+        taxPerMonth,
+        simulationDay,
       ];
 
       const results = await db.query(query, values);

@@ -1,4 +1,5 @@
 const loanModel = require("../models/loanModel");
+const moment = require("moment");
 
 module.exports = {
   async create(req, res) {
@@ -13,7 +14,8 @@ module.exports = {
         totalPayable,
         plots,
       } = req.body;
-  
+
+      let simulationDay = moment().format();
 
       //salvar taxa e dia que foi solicitado
       const userId = await loanModel.insert({
@@ -23,8 +25,10 @@ module.exports = {
         requestedAmount,
         deadlinesMonths,
         totalPayable,
+        taxPerMonth,
+        simulationDay,
       });
-  
+
       return res.json(userId);
     } catch (error) {
       console.error(error);
