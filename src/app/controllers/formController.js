@@ -11,31 +11,36 @@ module.exports = {
             "O prazo máximo de pagamento deve ser menor que 30 anos ou 360 meses",
         });
 
-      if (requestedAmount < 5000000)
+      if (requestedAmount < 50000)
         return res.status(400).json({
           error: "O valor mínimo para empréstimo é de R$50.000,00",
         });
 
+      if (uf !== "MG" && uf !== "SP" && uf !== "RJ" && uf !== "ES")
+        return res.status(400).json({
+          error: "Não trabalhamos com o estado selecionado",
+        });
+
       let totalPayable;
-      let juros;
+      let juros; //juros em ingles
       let taxPerMonth;
 
+      //usar switch case
+      //validação de UF no default
       if (uf === "MG") {
         taxPerMonth = 1;
-        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
       if (uf === "SP") {
         taxPerMonth = 0.8;
-        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
       if (uf === "RJ") {
         taxPerMonth = 0.9;
-        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
       if (uf === "ES") {
         taxPerMonth = 1.11;
-        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
+
+      juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
 
       totalPayable = Number(requestedAmount) + juros;
 
@@ -43,6 +48,7 @@ module.exports = {
 
       let plots = [];
 
+      //add o momentjs
       for (let i = 1; i <= Number(deadlinesMonths); i++) {
         plots.push(
           `${date(firstInstallmentDate).day}/${
@@ -66,7 +72,7 @@ module.exports = {
     } catch (error) {
       console.error(error);
       return res.status(400).json({
-        error: "Algum erro inesperado aconteceu, tente novamente mais tarde!",
+        error: "Algum erro inesperado aconteceu, tente novamente!",
       });
     }
   },

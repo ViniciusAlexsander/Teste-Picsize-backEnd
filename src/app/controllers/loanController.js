@@ -2,7 +2,6 @@ const loanModel = require("../models/loanModel");
 
 module.exports = {
   async create(req, res) {
-    
     try {
       const {
         cpf,
@@ -15,6 +14,8 @@ module.exports = {
         plots,
       } = req.body;
   
+
+      //salvar taxa e dia que foi solicitado
       const userId = await loanModel.insert({
         cpf,
         uf,
