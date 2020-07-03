@@ -3,15 +3,15 @@ const { date, formatPrice } = require("../../lib/utils");
 module.exports = {
   async index(req, res) {
     try {
-      const { cpf, uf, birth, requested_amount, deadlines_months } = req.body;
+      const { cpf, uf, birth, requestedAmount, deadlinesMonths } = req.body;
 
-      if (deadlines_months > 360)
+      if (deadlinesMonths > 360)
         return res.status(400).json({
           error:
             "O prazo máximo de pagamento deve ser menor que 30 anos ou 360 meses",
         });
 
-      if (requested_amount < 5000000)
+      if (requestedAmount < 5000000)
         return res.status(400).json({
           error: "O valor mínimo para empréstimo é de R$50.000,00",
         });
@@ -22,34 +22,44 @@ module.exports = {
 
       if (uf === "MG") {
         taxPerMonth = 1;
-        juros = requested_amount * (taxPerMonth / 100) * deadlines_months;
+        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
       if (uf === "SP") {
         taxPerMonth = 0.8;
-        juros = requested_amount * (taxPerMonth / 100) * deadlines_months;
+        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
       if (uf === "RJ") {
         taxPerMonth = 0.9;
-        juros = requested_amount * (taxPerMonth / 100) * deadlines_months;
+        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
       if (uf === "ES") {
         taxPerMonth = 1.11;
-        juros = requested_amount * (taxPerMonth / 100) * deadlines_months;
+        juros = requestedAmount * (taxPerMonth / 100) * deadlinesMonths;
       }
 
-      totalPayable = requested_amount + juros;
+      totalPayable = Number(requestedAmount) + juros;
 
       let firstInstallmentDate = Date.now();
+
+      let plots = [];
+
+      for (let i = 1; i <= Number(deadlinesMonths); i++) {
+        plots.push(
+          `${date(firstInstallmentDate).day}/${
+            Number(date(firstInstallmentDate).month) + i
+          }/${date(firstInstallmentDate).year}`
+        );
+      }
 
       userLoan = {
         cpf,
         uf,
         birth: date(birth).iso,
-        requested_amount,
-        deadlines_months,
+        requestedAmount,
+        deadlinesMonths,
         taxPerMonth,
         totalPayable,
-        firstInstallmentDate: date(firstInstallmentDate).format,
+        plots,
       };
 
       return res.json(userLoan);
