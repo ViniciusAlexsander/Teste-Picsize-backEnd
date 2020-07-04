@@ -9,7 +9,7 @@ Depois de clonar o projeto, basta abrir ele e executar npm install para baixar a
 
 ## Executando
 
-Depois de instalar as dependências basta executar o comando npm run dev e ia até o localhost na porta 3000
+Depois de instalar as dependências basta executar o comando npm run dev e ia até o localhost na porta 3333
 
 ## Autores
 
