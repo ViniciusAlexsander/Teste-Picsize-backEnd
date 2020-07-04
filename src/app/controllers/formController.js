@@ -56,7 +56,7 @@ module.exports = {
       for (let i = 1; i <= Number(deadlinesMonths); i++) {
         plots.push(plot = {
           installmentValue: formatPrice(installmentValue),
-          installmentMaturity: moment().add(i,'months')
+          installmentMaturity: date(moment().add(i,'months')).format
         });
       }
 

@@ -12,7 +12,6 @@ module.exports = {
         deadlinesMonths,
         taxPerMonth,
         totalPayable,
-        plots,
       } = req.body;
 
       let simulationDay = moment().format();
