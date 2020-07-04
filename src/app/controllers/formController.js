@@ -1,5 +1,4 @@
 const { date, formatPrice } = require("../../lib/utils");
-const { defaults } = require("pg");
 const moment = require("moment");
 const { months } = require("moment");
 
