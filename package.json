@@ -4,12 +4,7 @@
   "description": "Teste Técnico Picsize Web Developer",
   "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
-  },
-  "engines": {
-    "node": "13.11.0"
+    "start": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +22,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "moment": "^2.27.0",
-    "pg": "^8.2.1"
+    "moment": "^2.27.0"
   }
 }
