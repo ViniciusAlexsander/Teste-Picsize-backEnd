@@ -10,4 +10,6 @@ routes.post("/form", formController.index);
 //exibe o form com o resultado da simulação e salva em um banco de dados os dados, caso o usuario aceite a simulação
 routes.post("/loan-simulation", loanController.create);
 
+routes.get("/",(req,res) => res.send("Ola Mundo!"))
+
 module.exports = routes;
