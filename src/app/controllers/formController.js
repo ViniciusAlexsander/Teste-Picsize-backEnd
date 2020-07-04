@@ -55,7 +55,7 @@ module.exports = {
       //Baseado no dia em que foi solicitada a simulação do emprestimo
       for (let i = 1; i <= Number(deadlinesMonths); i++) {
         plots.push(plot = {
-          installmentValue,
+          installmentValue: formatPrice(installmentValue),
           installmentMaturity: moment().add(i,'months')
         });
       }
