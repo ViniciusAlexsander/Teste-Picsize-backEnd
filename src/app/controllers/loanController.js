@@ -44,8 +44,16 @@ module.exports = {
             error:
               "Algum erro inesperado aconteceu, tente novamente mais tarde!",
           });
-        return res.json({ data });
+        return res.json({ id });
       });
+    } catch (error) {
+      console.error(error);
+      return res.status(400).json({});
+    }
+  },
+  index(req, res) {
+    try {
+      return res.json({ data });
     } catch (error) {
       console.error(error);
       return res.status(400).json({

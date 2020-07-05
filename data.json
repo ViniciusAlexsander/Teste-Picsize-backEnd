@@ -2,14 +2,36 @@
   "loans": [
     {
       "id": 1,
-      "cpf": "7000000",
+      "cpf": "123.456.789-10",
       "uf": "MG",
-      "birth": "2000-09-25",
-      "requestedAmount": "100000",
-      "deadlinesMonths": "3",
-      "totalPayable": "103000",
-      "taxPerMonth": "1",
-      "simulationDay": "2020-07-04T18:59:41-03:00"
+      "birth": "2011-11-11",
+      "requestedAmount": 100000,
+      "deadlinesMonths": 6,
+      "totalPayable": 106000,
+      "taxPerMonth": 1,
+      "simulationDay": "2020-07-05T09:44:41-03:00"
+    },
+    {
+      "id": 2,
+      "cpf": "123.456.789-10",
+      "uf": "MG",
+      "birth": "2011-11-11",
+      "requestedAmount": 100000,
+      "deadlinesMonths": 6,
+      "totalPayable": 106000,
+      "taxPerMonth": 1,
+      "simulationDay": "2020-07-05T09:45:24-03:00"
+    },
+    {
+      "id": 3,
+      "cpf": "123.456.789-10",
+      "uf": "MG",
+      "birth": "2011-11-11",
+      "requestedAmount": 100000,
+      "deadlinesMonths": 6,
+      "totalPayable": 106000,
+      "taxPerMonth": 1,
+      "simulationDay": "2020-07-05T09:46:14-03:00"
     }
   ]
 }
